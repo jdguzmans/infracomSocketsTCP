@@ -10,23 +10,29 @@ public class Server {
 
 
 	public static void main(String argv[]) throws Exception {
-		System.out.println("Empezó el servidor");
+		System.out.println("Server started");
 		workers = new Worker[WORKERS];
 		@SuppressWarnings("resource")
 		ServerSocket welcomeSocket = new ServerSocket(SERVER_PORT);
 
+		for (int i = 0; i < workers.length; i++) {
+			if (workers[i] == null) {
+				workers[i] = new Worker(i);
+			}
+		}
+		
 		while (true) {
 			Socket connectionSocket = welcomeSocket.accept();
 			Worker worker = null;
 			
 			for (int i = 0; i < workers.length && worker == null; i++) {
-				if (workers[i] == null) {
-					workers[i] = new Worker(connectionSocket);
+				if (workers[i].isNotRunning()) {
+					workers[i].receiveClientSocker(connectionSocket);
 					worker = workers[i];
 				}
 			}
-			if (worker == null) {
-				
+			
+			if (worker == null) {	
 				BufferedReader inFromClient = new BufferedReader(new InputStreamReader(connectionSocket.getInputStream()));
 				DataOutputStream outToClient = new DataOutputStream(connectionSocket.getOutputStream());			
 				

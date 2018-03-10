@@ -7,30 +7,44 @@ import java.net.*;
 
 public class Worker extends Thread {
 	
+	private int id;
 	private Socket clientSocket;
 	
-	public Worker(Socket socket) {
-		clientSocket = socket;
+	public Worker(int i) {
+		this.id = i;
+	}
+	
+	public void receiveClientSocker(Socket clientSocket) {
+		this.clientSocket = clientSocket;
+	}
+	
+	public boolean isNotRunning () {
+		return clientSocket == null || clientSocket.isClosed();
 	}
 
 	public void run() {
-		System.out.println("Worker tiene conexión");
+		log("Connection");
 		String clientSentence = "";
-		try {
-			
+		
+		try {	
 			BufferedReader inFromClient = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 			DataOutputStream outToClient = new DataOutputStream(clientSocket.getOutputStream());			
 			
 			clientSentence = inFromClient.readLine();
-			System.out.println("DEL CLIENTE: " + clientSentence);
+			log("IN: " + clientSentence);
 			
-			if (clientSentence.equals("H")) outToClient.writeBytes("H" + '\n');
-			else outToClient.writeBytes("ERROR" + '\n');
+			outToClient.writeBytes("H\n");
+			log("RESPONDIO");
 			
+			outToClient.close();
 		}
 		catch(Exception e) {
 			e.printStackTrace();
 		}
 
+	}
+	
+	private void log(String wat) {
+		System.out.println(id + ": " + wat);
 	}
 }
