@@ -24,7 +24,7 @@ public class Worker extends Thread {
 			clientSentence = inFromClient.readLine();
 			System.out.println("DEL CLIENTE: " + clientSentence);
 			
-			if (clientSentence.equals("H")) outToClient.writeBytes("H" + '\n');
+			if (clientSentence.equals("H"))outToClient.writeBytes("H" + '\n');
 			else outToClient.writeBytes("ERROR" + '\n');
 			
 		}
