@@ -5,12 +5,12 @@ import java.net.*;
 import server.Server;
 
 public class Client {
-	private final static String SERVER_ADDRESS = "localhost";
+	private final static String SERVER_ADDRESS = "157.253.214.205";
 	
 	public static void main(String argv[]) throws Exception {
 		String console;
 		String fromServer;
-	
+		
 		BufferedReader inFromUser = new BufferedReader(new InputStreamReader(System.in));
 		Socket clientSocket = new Socket(SERVER_ADDRESS, Server.SERVER_PORT);
 		
@@ -19,9 +19,9 @@ public class Client {
 		
 		outToServer.writeBytes("H" + '\n');
 		System.out.println("YA MANDO HOLA");
-		
+	
 		fromServer = inFromServer.readLine();
-		System.out.println("FROM SERVER: " + inFromServer.readLine());
+		System.out.println("FROM SERVER: " + fromServer);
 		
 		clientSocket.close();
 	}
