@@ -7,10 +7,10 @@ public class Server {
 	public final static int SERVER_PORT = 6789;
 	private static Worker[] workers;
 	private final static int WORKERS = 2;
-
+	public final static String FILE_DIR = "./files/";
 
 	public static void main(String argv[]) throws Exception {
-		System.out.println("Server started");
+		System.out.println("SERVER STARTED");
 		workers = new Worker[WORKERS];
 		@SuppressWarnings("resource")
 		ServerSocket welcomeSocket = new ServerSocket(SERVER_PORT);
