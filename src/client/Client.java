@@ -5,7 +5,7 @@ import java.net.*;
 import server.Server;
 
 public class Client {
-	private final static String SERVER_ADDRESS = "localhost";
+	private final static String SERVER_ADDRESS = "www.coralingenieros.com";
 
 	private static void saveFile(Socket clientSock, String nameFile, String size) throws IOException {
 		
@@ -22,11 +22,11 @@ public class Client {
 		while((read = dis.read(buffer, 0, Math.min(buffer.length, remaining))) > 0) {
 			totalRead += read;
 			remaining -= read;
-			//System.out.println("read " + totalRead + " bytes.");
+			System.out.println("read " + totalRead + " bytes.");
 			fos.write(buffer, 0, read);
 		}
 		
-		//System.out.println("DONE ");
+		System.out.println("DONE ");
 
 		fos.close();
 		dis.close();
@@ -112,7 +112,7 @@ public class Client {
 				saveFile(clientSocket, param1C, param2C);
 
 				System.out.println("TERMINO F");
-				inFromServer.readLine();
+				//inFromServer.readLine();
 				break;
 
 			case "E":
