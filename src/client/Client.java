@@ -5,15 +5,15 @@ import java.net.*;
 import server.Server;
 
 public class Client {
-	private final static String SERVER_ADDRESS = "157.253.214.205";
+	private final static String SERVER_ADDRESS = "localhost";
 
 	private static void saveFile(Socket clientSock, String nameFile, String size) throws IOException {
 		
 		DataInputStream dis = new DataInputStream(clientSock.getInputStream());
-		FileOutputStream fos = new FileOutputStream( new File("/Users/BarraganJeronimo/desktop/"+nameFile));
+		FileOutputStream fos = new FileOutputStream( new File("./down/"+nameFile));
 		System.out.println("START SAVE FILE");
 
-		byte[] buffer = new byte[4096];
+		byte[] buffer = new byte[512];
 
 		int filesize = Integer.parseInt(size); // Send file size in separate msg
 		int read = 0;
@@ -112,6 +112,7 @@ public class Client {
 				saveFile(clientSocket, param1C, param2C);
 
 				System.out.println("TERMINO F");
+				inFromServer.readLine();
 				break;
 
 			case "E":

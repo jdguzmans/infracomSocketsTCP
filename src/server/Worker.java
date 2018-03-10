@@ -67,16 +67,17 @@ public class Worker extends Thread {
 						} 
 						else {
 							outToClient.writeBytes("F\n");
+							
 							FileInputStream fis = new FileInputStream(searched);
+
+							int count;
+							byte[] buffer = new byte[512];
 							
-							byte[] buffer = new byte[4096];
-							
-							while (fis.read(buffer) > 0) {
-								outToClient.write(buffer, 0, buffer.length);
-								log(inFromClient.read()+ "");
+							while ((count=fis.read(buffer)) > 0) {
+								outToClient.write(buffer, 0, count);
 							}
 							
-							log("TERMINO");
+							log("Termino");
 							fis.close();
 							outToClient.writeBytes("F\n");
 						}
